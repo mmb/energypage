@@ -1,0 +1,2 @@
+Various tools for building an energy dashboard page that will show usage, cost
+and power outages.
