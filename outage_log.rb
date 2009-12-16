@@ -41,8 +41,7 @@ last_outage = format_outage(h)
 
 f = open(LogFile, 'a+')
 
-updated = false
-if f.eof? or ((last_line = f.readline.strip) != last_outage)
+updated = if f.eof? or ((last_line = f.readline.strip) != last_outage)
   tf = Tempfile.new('outage_rss')
   tf.write("#{last_outage}\n")
   tf.write("#{last_line}\n") unless (last_line || '').strip.empty?
@@ -50,9 +49,10 @@ if f.eof? or ((last_line = f.readline.strip) != last_outage)
   f.close
   tf.close
   File.copy(tf.path, LogFile)
-  updated = true
+  true
 else
   f.close
+  false
 end
 
 # update feed
